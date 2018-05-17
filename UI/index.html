@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8"/>
     <title>CMSC 142 Sudoku Solver</title>
-    <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="css/proj.css">
 </head>
 <body>
@@ -25,8 +25,8 @@
 			</div>
 			<div class="eight wide column">
 				<div style="float: right;">
-					 <a href=""><i class="large circular inverted question circle icon"></i></a>
-					  <a href=""><i class="large circular inverted info circle icon"></i></a>
+					 <a href="" ng-click="main.openModal(1)" class="instruc button"><i class="large circular inverted question circle icon"></i></a>
+					  <a href="" ng-click="main.openModal(2)"><i class="large circular inverted info circle icon"></i></a>
 				</div>
 			</div>
 		</div>
@@ -50,9 +50,9 @@
 				</div>
 				<div class="eight wide column">
 					<div ng-show="main.showPuzzles">
-						Number of Solutions: {{main.Nsolutions}}
+						Number of Solutions: {{main.Nsolutions}}<br>
+						Solution {{main.currentPage+1}}
 						<div class="column">
-							<h3 class="important">Solution {{main.currentPage+1}}</h3>
 							<div>
 								<table class="ui celled table">
 									    <tr ng-repeat="cols in main.solutions[main.currentPage] track by $index">
@@ -69,15 +69,16 @@
 			</div>
 			<div class="row">
 				<div class="eight wide column">
-					<div class="ui stackable two column grid container">
-					  	<div class="four wide column" style="float: left;" >
+					<div class="ui stackable three column grid container">
+					  	<div class="four wide column">
 							<button class="ui left labeled icon button" ng-disabled="main.puzzleIndex==0" ng-click="main.prevPuzzle()">
 							  <i class="left arrow icon"></i>
 							  Previous Puzzle
 							</button>
 						</div>
-					  	<div class="four wide column" style="float: right ! important;">
-						  	<button  class="ui right labeled icon button" ng-disabled="main.puzzleIndex==(main.puzzleNumber-1)" ng-click="main.nextPuzzle()">
+						<div class="eight wide column"></div>
+					  	<div class="four wide column" >
+						  	<button class="ui right labeled icon button" ng-disabled="main.puzzleIndex==(main.puzzleNumber-1)" ng-click="main.nextPuzzle()">
 							  <i class="right arrow icon"></i>
 							  Next Puzzle
 							</button>
@@ -89,8 +90,8 @@
 						<a class="icon item" ng-disabled="main.currentPage==0" ng-click="main.prevPage()">
 						  <i class="left chevron icon"></i>
 						</a>
-						<a class="item" ng-click="main.currentPage=0">Initial Table</a>
-						<a class="item" ng-click="main.currentPage=main.solutions.length-1">Last Table</a>
+						<a class="item" ng-click="main.currentPage=0">Initial Puzzle</a>
+						<a class="item" ng-click="main.currentPage=main.solutions.length-1">Last Puzzle</a>
 						<a class="icon item" ng-disabled="(main.currentPage)==(main.table.length-1)" ng-click="main.nextPage()">
 						  <i class="right chevron icon"></i>
 						</a>
@@ -232,9 +233,9 @@
 			</div>
 		</div>
 		<div ng-show="main.showPuzzles">
-			Number of Solutions: {{main.Nsolutions}}
+			Number of Solutions: {{main.Nsolutions}}<br>
+			Solution {{main.currentPage+1}}
 			<div class="column">
-				<h3 class="important">Solution {{main.currentPage+1}}</h3>
 				<div>
 					<table class="ui celled table">
 						    <tr ng-repeat="cols in main.solutions[main.currentPage] track by $index">
@@ -251,18 +252,96 @@
 			<a class="icon item" ng-disabled="main.currentPage==0" ng-click="main.prevPage()">
 			  <i class="left chevron icon"></i>
 			</a>
-			<a class="item" ng-click="main.currentPage=0">Initial Table</a>
-			<a class="item" ng-click="main.currentPage=main.solutions.length-1">Last Table</a>
+			<a class="item" ng-click="main.currentPage=0">Initial Puzzle</a>
+			<a class="item" ng-click="main.currentPage=main.solutions.length-1">Last Puzzle</a>
 			<a class="icon item" ng-disabled="(main.currentPage)==(main.table.length-1)" ng-click="main.nextPage()">
 			  <i class="right chevron icon"></i>
 			</a>
 		 </div>
 	</div>
 
+	<div class="ui modal instruc">
+	  <i class="close icon"></i>
+	  <div class="header">
+	    SUDOKU INSTRUCTION
+	  </div>
+	  <div class="ui brown message">
+	  	<ul class="ui list">
+		  <li>Given an N x N Sudoku board, fill it out using numbers from 1 to N such that each number would appear on its row, column, and subgrid exactly once.</li>
+		  <li>To step up the game, Sudoku X, Y, and XY are modifications that add to the constraints of the puzzle. 
+			<ul>
+		      <li>Sudoku X invalidates the multiple presence of a number in the a diagonal of the puzzle.</li>
+		      <li>Sudoku Y does the same but in the upper half diagonal and then down the bottom center.</li>
+		      <li>Sudoku XY have both additional constraints.</li>
+		    </ul>
+			</li>
+		  <li>Apparently, puzzles with even size are immediately considered having no Y and XY solutions.</li>
+		</ul>
+	  </div>
+
+	  <div class="header">
+		APPLICATION INSTRUCTIONS
+	  </div>
+	  <div class="ui orange message">
+	  	<ul class="ui list">
+		  <li>Choose a text file containing the configuration of the puzzles.</li>
+		  <li>After loading it, the puzzles can be navigated using the buttons NEXT puzzle and PREVIOUS puzzle.
+		  </li>
+		  <center>
+		  	<div class="ui image">
+		      <img src="assets/puzzleButton.PNG">
+		    </div></center>
+		  <li>Solve the currently displayed puzzle by inputing numbers in the cells.
+		  </li>
+		  	<center>
+		  	<div class="ui small image">
+		      <img src="assets/input.PNG">
+		    </div>
+		    </center>
+		  <li>To check your progress, click CHECK buttons to see whether you have violated a rule or not. Click the same buttons to check your final solution. 
+		  </li>
+		  <center>
+		  <div class="ui medium image">
+		      <img src="assets/checkButtons.PNG">
+		    </div>
+		    </center>
+	      <li>SOLVE buttons will show you all possible solutions of the puzzle. Browse all of the solutions by clicking right arrow for NEXT and left arrow for PREVIOUS. A shortcut for INITIAL and LAST PUZZLE was made.<br>
+	      	<center>
+	      	<div class="ui medium image">
+		      <img src="assets/solveButtons.PNG">
+		    </div>
+		    <div class="ui image">
+		      <img src="assets/solutionsButton.PNG">
+		    </div>
+		    </center>
+	      </li>
+		</ul>
+	  </div>
+	  <div class="header"></div>
+	</div>
+
+	<div class="ui basic modal credits">
+		<div class="ui icon header">
+		    <i class="paw icon"></i>
+		    Created by: Parallelipipet
+		  </div>
+		  <center>
+		  <div class="content">
+		  	As final project in CMSC 142 2nd Semester AY 17-18
+		  </div><br><br>
+		  <div class="content" style="font-size: 20px">
+			  Rendel Cuanico<br>
+			  Melbex De Leon<br>
+			  Bernieson Sahagun<br>
+			  Aizaya Seco<br>
+		  </div>
+		  </center>
+	</div>
+
 	</div> 
 		
     <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
-    <script type="text/javascript" src="js/semantic.min.js"></script>
+    <script type="text/javascript" src="semantic/dist/semantic.min.js"></script>
     <script type="text/javascript" src="js/angular.js"></script>
     <script type="text/javascript" src="app/app.js"></script>
     <script type="text/javascript" src="app/main.controller.js"></script>

@@ -67,6 +67,7 @@
     vm.nextPage = nextPage;
     vm.prevPage = prevPage;
     vm.fileRead = fileRead;
+    vm.openModal = openModal;
 
     function here(val, i, j) {
       console.log("here:" + val);
@@ -85,6 +86,20 @@
     function fileRead() {
       //do file reading here
       console.log("hmm");
+    }
+
+    function openModal(i){
+      console.log(i)
+      if(i==1){
+        $('.ui.modal.instruc')
+          .modal('show')
+        ;
+      }
+      if(i==2){
+        $('.ui.modal.credits')
+          .modal('show')
+        ;
+      }
     }
 
     function nextPuzzle() {
