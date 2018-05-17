@@ -1,0 +1,50 @@
+table{
+	border-spacing: 0;
+}
+
+th{
+    font-weight: normal ! important; 
+}
+
+table td{
+	white-space: nowrap;
+	margin: 0; 
+	padding: 0;
+	border: 0;
+}
+
+#form{
+	padding: 20px;
+	border: 10px
+}
+input[type=number] {
+	display: block; 
+	padding: 0; 
+	margin: 0; 
+	border: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #898484 ! important;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+input:focus{
+    outline: none;
+}
+
+*:focus {
+    outline: none;
+}
+
+.ans0{
+	background-color: #898484 ! important;
+	
+}
+

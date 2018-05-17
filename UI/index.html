@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<meta charset="utf-8"/>
+    <title>CMSC 142 Sudoku Solver</title>
+    <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="css/proj.css">
+</head>
+<body>
+	<br>
+	<center>
+	<h1 class="ui red inverted header">
+		<i class="puzzle piece icon"></i>
+		<div class="content">
+		  SUDOKU SOLVER
+		  </div>  
+	</h1>
+	</center>
+	<div ng-controller="mainController as main" class="ui vertically divided grid">
+		<div class="row">
+			<div class="eight wide column">
+				<div style="float: left; padding: 10px">
+					<a href="" ng-click="main.fileRead()"><i class="large black file alternate icon"></i> File Read</a>
+				</div>
+			</div>
+			<div class="eight wide column">
+				<div style="float: right;">
+					 <a href=""><i class="large circular inverted question circle icon"></i></a>
+					  <a href=""><i class="large circular inverted info circle icon"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div ng-controller="mainController as main">
+		<div  ng-if="main.N<=9"  class="ui vertically divided grid">
+			<div class="row">
+				<div class="eight wide column">
+					<form id="form">
+						 <table class="ui inverted structured celled table" >
+							    <tr ng-repeat="cols in main.uiTable track by $index" ng-init="index=$index">
+							      <td ng-repeat="e in cols track by $index" class="center aligned ans{{e}}">
+								      	<input type="number" ng-if="e==0" ng-model="value" ng-change="main.here(value,index,$index)" ng-value="main.currTable[index][$index]" class="center aligned">
+								      </input>
+							      		<div ng-if="e!=0">{{e}}</div>
+							      	</td>
+							    </tr>
+					  	</table>
+				  	</form>
+				</div>
+				<div class="eight wide column">
+					<div ng-show="main.showPuzzles">
+						Number of Solutions: {{main.Nsolutions}}
+						<div class="column">
+							<h3 class="important">Solution {{main.currentPage+1}}</h3>
+							<div>
+								<table class="ui celled table">
+									    <tr ng-repeat="cols in main.solutions[main.currentPage] track by $index">
+									      <td ng-repeat="e in cols track by $index" class="center aligned">{{e}}</td>
+									    </tr>
+							  	</table>
+							</div>
+						</div>
+					</div>
+					<div ng-show="main.noSolution">
+						NO SOLUTION :(
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="eight wide column">
+					<div class="ui stackable two column grid container">
+					  	<div class="four wide column" style="float: left;" >
+							<button class="ui left labeled icon button" ng-disabled="main.puzzleIndex==0" ng-click="main.prevPuzzle()">
+							  <i class="left arrow icon"></i>
+							  Previous Puzzle
+							</button>
+						</div>
+					  	<div class="four wide column" style="float: right ! important;">
+						  	<button  class="ui right labeled icon button" ng-disabled="main.puzzleIndex==(main.puzzleNumber-1)" ng-click="main.nextPuzzle()">
+							  <i class="right arrow icon"></i>
+							  Next Puzzle
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="eight wide column">
+					<div ng-show="main.showPuzzles" class="ui pagination menu" style="float: right ! important; padding: 10px">
+						<a class="icon item" ng-disabled="main.currentPage==0" ng-click="main.prevPage()">
+						  <i class="left chevron icon"></i>
+						</a>
+						<a class="item" ng-click="main.currentPage=0">Initial Table</a>
+						<a class="item" ng-click="main.currentPage=main.solutions.length-1">Last Table</a>
+						<a class="icon item" ng-disabled="(main.currentPage)==(main.table.length-1)" ng-click="main.nextPage()">
+						  <i class="right chevron icon"></i>
+						</a>
+					 </div> 
+				</div>
+			</div>
+			<div class="row">
+				<div class="eight wide column">
+						<h4 class="ui icon header center aligned">
+						  <i class="pencil alternate icon"></i>
+						  <div class="content">
+						    Check Own Solution
+						  </div>
+						</h4> 
+						<div class="ui stackable two column grid container center aligned">
+							<div class="four wide column">
+								<button class="ui green button big">Regular</button>
+							</div>
+							<div class="four wide column">
+								<button class="ui orange button big">Sudoku X</button>
+							</div>
+						</div>
+						<div class="ui stackable two column grid container center aligned">
+							<div class="four wide column">
+								<button class="ui red button big" ng-if="(main.N%2)==1" >Sudoku Y</button>
+							</div>
+							<div class="four wide column">
+								<button class="ui blue button big" ng-if="(main.N%2)==1" >Sudoku XY</button>
+							</div>
+						</div>
+					</div>	
+					<div class="eight wide column">
+						<h4 class="ui icon header center aligned">
+						  <i class="settings icon"></i>
+						  <div class="content">
+						    Solve using Solver
+						  </div>
+						</h4> 
+						<div class="ui stackable two column grid container center aligned">
+						<div class="four wide column">
+							<button class="ui big inverted green button" ng-click="main.solveRegular()">Regular</button>
+						</div>
+						<div class="four wide column">
+							<button class="ui big inverted orange button" ng-click="main.solveX()">Sudoku X</button>
+						</div>
+						</div>
+						<div class="ui stackable two column grid container center aligned">
+							<div class="four wide column">
+								<button class="ui big inverted red button" ng-if="(main.N%2)==1" ng-click="main.solveY()">Sudoku Y</button>
+							</div>
+							<div class="four wide column">
+								<button class="ui big inverted blue button" ng-if="(main.N%2)==1" ng-click="main.solveXY()">Sudoku XY</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<div ng-if="main.N>9" >
+			<div class="ui container">
+				 <form id="form">
+					 <table class="ui inverted structured celled table" >
+						    <tr ng-repeat="cols in main.uiTable track by $index" ng-init="index=$index">
+						      <td ng-repeat="e in cols track by $index" class="center aligned ans{{e}}">
+							      	<input type="number" ng-if="e==0" ng-model="value" ng-change="main.here(value,index,$index)" ng-value="main.currTable[index][$index]" class="center aligned">
+							      </input>
+						      		<div ng-if="e!=0">{{e}}</div>
+						      	</td>
+						    </tr>
+				  	</table>
+			  	</form>
+			</div>
+			<div class="ui stackable three column grid container">
+				<div class="four wide column">
+					<button style="float: right;" class="ui left labeled icon button" ng-disabled="main.puzzleIndex==0" ng-click="main.prevPuzzle()">
+					  <i class="left arrow icon"></i>
+					  Previous Puzzle
+					</button>
+				</div>
+				 <div class="eight wide column">
+					<h4 class="ui icon header center aligned">
+					  <i class="pencil alternate icon"></i>
+					  <div class="content">
+					    Check Own Solution
+					  </div>
+					</h4> 
+
+					<div class="ui stackable two column grid container center aligned">
+					<div class="four wide column">
+						<button class="ui green button big">Regular</button>
+					</div>
+					<div class="four wide column">
+						<button class="ui orange button big">Sudoku X</button>
+					</div>
+					</div>
+					<div class="ui stackable two column grid container center aligned">
+						<div class="four wide column">
+							<button class="ui red button big" ng-if="(main.N%2)==1" >Sudoku Y</button>
+						</div>
+						<div class="four wide column">
+							<button class="ui blue button big" ng-if="(main.N%2)==1" >Sudoku XY</button>
+						</div>
+					</div>
+				</div>
+			<div class="four wide column">
+			  	<button class="ui right labeled icon button" ng-disabled="main.puzzleIndex==(main.puzzleNumber-1)" ng-click="main.nextPuzzle()">
+				  <i class="right arrow icon"></i>
+				  Next Puzzle
+				</button>
+			</div>
+		</div>
+				<div class="ui stackable three column grid container">
+			<div class="four wide column">
+			</div>
+			<div class="eight wide column">
+				<h4 class="ui icon header center aligned">
+				  <i class="settings icon"></i>
+				  <div class="content">
+				    Solve using Solver
+				  </div>
+				</h4> 
+				<div class="ui stackable two column grid container center aligned">
+				<div class="four wide column">
+					<button class="ui big inverted green button" ng-click="main.solveRegular()">Regular</button>
+				</div>
+				<div class="four wide column">
+					<button class="ui big inverted orange button" ng-click="main.solveX()">Sudoku X</button>
+				</div>
+				</div>
+				<div class="ui stackable two column grid container center aligned">
+					<div class="four wide column">
+						<button class="ui big inverted red button" ng-if="(main.N%2)==1" ng-click="main.solveY()">Sudoku Y</button>
+					</div>
+					<div class="four wide column">
+						<button class="ui big inverted blue button" ng-if="(main.N%2)==1" ng-click="main.solveXY()">Sudoku XY</button>
+					</div>
+				</div>
+			</div>
+			<div class="four wide column">
+			</div>
+		</div>
+		<div ng-show="main.showPuzzles">
+			Number of Solutions: {{main.Nsolutions}}
+			<div class="column">
+				<h3 class="important">Solution {{main.currentPage+1}}</h3>
+				<div>
+					<table class="ui celled table">
+						    <tr ng-repeat="cols in main.solutions[main.currentPage] track by $index">
+						      <td ng-repeat="e in cols track by $index" class="center aligned">{{e}}</td>
+						    </tr>
+				  	</table>
+				</div>
+			</div>
+		</div>
+		<div ng-show="main.noSolution">
+			NO SOLUTION :(
+		</div>
+		<div ng-show="main.showPuzzles" class="ui pagination menu" style="float: right ! important; padding: 10px">
+			<a class="icon item" ng-disabled="main.currentPage==0" ng-click="main.prevPage()">
+			  <i class="left chevron icon"></i>
+			</a>
+			<a class="item" ng-click="main.currentPage=0">Initial Table</a>
+			<a class="item" ng-click="main.currentPage=main.solutions.length-1">Last Table</a>
+			<a class="icon item" ng-disabled="(main.currentPage)==(main.table.length-1)" ng-click="main.nextPage()">
+			  <i class="right chevron icon"></i>
+			</a>
+		 </div>
+	</div>
+
+	</div> 
+		
+    <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="js/semantic.min.js"></script>
+    <script type="text/javascript" src="js/angular.js"></script>
+    <script type="text/javascript" src="app/app.js"></script>
+    <script type="text/javascript" src="app/main.controller.js"></script>
+</body>
+</html>
