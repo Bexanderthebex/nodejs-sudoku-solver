@@ -50,6 +50,7 @@ napi_value Solver(napi_env env, napi_callback_info info) {
   napi_create_array(env, &array);
   array = argv[0];
   napi_get_value_int32(env, argv[1], &sudoku_type);
+  printf("shet");
 
   // get the number of rows the array passed has
   napi_get_array_length(env, array, &N);
@@ -70,6 +71,7 @@ napi_value Solver(napi_env env, napi_callback_info info) {
       puzzle[i][j] = e2;
     }
   }
+  printf("shet");
 
   if(isValid(sudoku_type))
   {
@@ -163,13 +165,14 @@ napi_value Checker(napi_env env, napi_callback_info info) {
 napi_value Init(napi_env env, napi_value exports) {
   napi_status status;
   napi_value fn;
+  napi_value fn2;
 
   status = napi_create_function(env, NULL, 0, Solver, NULL, &fn);
   if (status != napi_ok) {
     napi_throw_error(env, NULL, "Unable to wrap native function");
   }
 
-  status = napi_create_function(env, NULL, 0, Checker, NULL, &fn);
+  status = napi_create_function(env, NULL, 0, Checker, NULL, &fn2);
   if (status != napi_ok) {
     napi_throw_error(env, NULL, "Unable to wrap native function");
   }
@@ -179,7 +182,7 @@ napi_value Init(napi_env env, napi_value exports) {
     napi_throw_error(env, NULL, "Unable to populate exports");
   }
 
-  status = napi_set_named_property(env, exports, "checker", fn);
+  status = napi_set_named_property(env, exports, "checker", fn2);
   if (status != napi_ok) {
     napi_throw_error(env, NULL, "Unable to populate exports");
   }
