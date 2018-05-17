@@ -40,9 +40,9 @@
 						 <table class="ui inverted structured celled table" >
 							    <tr ng-repeat="cols in main.uiTable track by $index" ng-init="index=$index">
 							      <td ng-repeat="e in cols track by $index" class="center aligned ans{{e}}">
-								      	<input type="number" ng-if="e==0" ng-model="value" ng-change="main.here(value,index,$index)" ng-value="main.currTable[index][$index]" class="center aligned">
+								      	<input type="number" class="center aligned ans{{e}}" ng-if="e==0 || e==999 || e==9999" ng-model="value" ng-change="main.here(value,index,$index)" ng-value="main.currTable[index][$index]">
 								      </input>
-							      		<div ng-if="e!=0">{{e}}</div>
+							      		<div ng-if="e!==0 && e!==999 && e!==9999">{{e}}</div>
 							      	</td>
 							    </tr>
 					  	</table>
@@ -108,18 +108,18 @@
 						</h4> 
 						<div class="ui stackable two column grid container center aligned">
 							<div class="four wide column">
-								<button class="ui green button big">Regular</button>
+								<button class="ui green button big" ng-click="main.checkPlayable(1)">Regular</button>
 							</div>
 							<div class="four wide column">
-								<button class="ui orange button big">Sudoku X</button>
+								<button class="ui orange button big" ng-click="main.checkPlayable(2)">Sudoku X</button>
 							</div>
 						</div>
 						<div class="ui stackable two column grid container center aligned">
 							<div class="four wide column">
-								<button class="ui red button big" ng-if="(main.N%2)==1" >Sudoku Y</button>
+								<button class="ui red button big" ng-click="main.checkPlayable(3)" ng-if="(main.N%2)==1" >Sudoku Y</button>
 							</div>
 							<div class="four wide column">
-								<button class="ui blue button big" ng-if="(main.N%2)==1" >Sudoku XY</button>
+								<button class="ui blue button big" ng-click="main.checkPlayable(4)" ng-if="(main.N%2)==1" >Sudoku XY</button>
 							</div>
 						</div>
 					</div>	
@@ -155,9 +155,9 @@
 					 <table class="ui inverted structured celled table" >
 						    <tr ng-repeat="cols in main.uiTable track by $index" ng-init="index=$index">
 						      <td ng-repeat="e in cols track by $index" class="center aligned ans{{e}}">
-							      	<input type="number" ng-if="e==0" ng-model="value" ng-change="main.here(value,index,$index)" ng-value="main.currTable[index][$index]" class="center aligned">
+							      	<input type="number" class="center aligned ans{{e}}" ng-if="e==0 || e==999 || e==9999" ng-model="value" ng-change="main.here(value,index,$index)" ng-value="main.currTable[index][$index]">
 							      </input>
-						      		<div ng-if="e!=0">{{e}}</div>
+						      		<div ng-if="e!==0 && e!==999 && e!==9999">{{e}}</div>
 						      	</td>
 						    </tr>
 				  	</table>
@@ -180,18 +180,18 @@
 
 					<div class="ui stackable two column grid container center aligned">
 					<div class="four wide column">
-						<button class="ui green button big">Regular</button>
+						<button class="ui green button big" ng-click="main.checkPlayable(1)">Regular</button>
 					</div>
 					<div class="four wide column">
-						<button class="ui orange button big">Sudoku X</button>
+						<button class="ui orange button big" ng-click="main.checkPlayable(2)">Sudoku X</button>
 					</div>
 					</div>
 					<div class="ui stackable two column grid container center aligned">
 						<div class="four wide column">
-							<button class="ui red button big" ng-if="(main.N%2)==1" >Sudoku Y</button>
+							<button class="ui red button big" ng-if="(main.N%2)==1" ng-click="main.checkPlayable(3)">Sudoku Y</button>
 						</div>
 						<div class="four wide column">
-							<button class="ui blue button big" ng-if="(main.N%2)==1" >Sudoku XY</button>
+							<button class="ui blue button big" ng-if="(main.N%2)==1" ng-click="main.checkPlayable(4)">Sudoku XY</button>
 						</div>
 					</div>
 				</div>

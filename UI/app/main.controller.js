@@ -68,6 +68,7 @@
     vm.prevPage = prevPage;
     vm.fileRead = fileRead;
     vm.openModal = openModal;
+    vm.checkPlayable = checkPlayable;
 
     function here(val, i, j) {
       console.log("here:" + val);
@@ -141,6 +142,71 @@
       if (vm.currentPage > 0) {
         vm.currentPage--;
       }
+    }
+
+    function checkPlayable(t){
+      vm.uiTable = JSON.parse(JSON.stringify(vm.puzzles[vm.puzzleIndex]));
+      var type=0;
+      if(t==1){
+        type=40;//regular
+      }else if(t==2){
+        type=10;//x
+      }else if(t==3){
+        type=20;//y
+      }else if(t==4){
+        type=30;//xy
+      }
+      var dim = vm.N;
+      var complete=true;
+      var answered=[];
+
+      for(i=0;i<dim;i++){
+        for(j=0;j<dim;j++){
+          if(vm.uiTable[i][j]==0 && vm.currTable[i][j]!=0){
+            answered.push([i,j])
+          }
+          if(vm.uiTable[i][j]==0 && vm.currTable[i][j]==0){
+            complete=false;
+          }
+        }
+      }
+      console.log(answered)
+      console.log(complete)
+      $http({
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          url: "http://localhost:3000/check",
+          data: { puzzle: vm.currTable, to_check:answered ,type: type }
+        }).then(
+          function successCallback(response) {
+            console.log(response.data)
+            let size= response.data.length;
+            if(size==0){
+              console.log("here")
+                if(complete){
+                  for(i=0;i<dim;i++){
+                    for(j=0;j<dim;j++){
+                      if(vm.uiTable[i][j]==0)
+                        vm.uiTable[i][j] = 9999
+                    }
+                  }
+                }
+                console.log(vm.uiTable)
+            }else{
+              for(i=0;i<size;i++){
+                let j = response.data[i][0]
+                let k = response.data[i][1]
+                vm.uiTable[j][k] = 999
+              }
+            }
+          },
+          function errorCallback(response) {
+            console.log(response);
+          }
+        );
+
     }
 
     function solveRegular() {

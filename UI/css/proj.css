@@ -17,7 +17,8 @@ table td{
 	padding: 20px;
 	border: 10px
 }
-input[type=number] {
+
+input[type=number].ans0{
 	display: block; 
 	padding: 0; 
 	margin: 0; 
@@ -25,6 +26,26 @@ input[type=number] {
     width: 100%;
     height: 100%;
     background-color: #999999 ! important;
+}
+
+input[type=number].ans999{
+	display: block; 
+	padding: 0; 
+	margin: 0; 
+	border: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #e87474 ! important;
+}
+
+input[type=number].ans9999{
+	display: block; 
+	padding: 0; 
+	margin: 0; 
+	border: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #87e874 ! important;
 }
 
 input[type=number]::-webkit-inner-spin-button, 
@@ -45,5 +66,13 @@ input:focus{
 
 .ans0{
 	background-color: #999999 ! important;
+}
+
+.ans999{
+	background-color: #e87474 ! important;
+}
+
+.ans9999{
+	background-color: #87e874 ! important;
 }
 
