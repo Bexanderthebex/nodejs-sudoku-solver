@@ -2,7 +2,7 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var cors = require("cors");
-const addon = require("./build/Release/module");
+// const addon = require("./build/Release/module");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,17 +24,17 @@ app.get("/", function(req, res) {
  *          }>
  * }
 */
-app.post("/solve", function(req, res) {
-  res.status(200).json(addon.solver(req.body.puzzle, req.body.type));
-  // addon.solver()
-});
+// app.post("/solve", function(req, res) {
+//   res.status(200).json(addon.solver(req.body.puzzle, req.body.type));
+//   // addon.solver()
+// });
 
-app.post("/check", function(req, res) {
-  res
-    .status(200)
-    .json(addon.checker(req.body.puzzle, req.body.to_check, req.body.type));
-  // addon.solver()
-});
+// app.post("/check", function(req, res) {
+//   res
+//     .status(200)
+//     .json(addon.checker(req.body.puzzle, req.body.to_check, req.body.type));
+//   // addon.solver()
+// });
 
 app.listen(3000, function() {
   console.log("app listening on port 3000!");

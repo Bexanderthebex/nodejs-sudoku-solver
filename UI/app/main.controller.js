@@ -79,9 +79,10 @@
     vm.openModal = openModal;
     vm.checkPlayable = checkPlayable;
     vm.textsrc = "";
+    vm.newPuzzle = []
 
-    $scope.contents = {}
-    $scope.txtfile = {}
+    vm.currentUpdate = 0
+    vm.totalUpdate = 0
 
     function here(val, i, j) {
       console.log("here:" + val);
@@ -98,28 +99,12 @@
     }
 
     $scope.showContent = function($fileContent){
-        $scope.contents.textsrc = $fileContent;
+        vm.textsrc = $fileContent;
 
-        var array = $scope.contents.textsrc.split("\n");
-
-        var noOfPuzzles = parseInt(array[0]);
-        var subgrid = 0;
-        
-        for(var i=1; i<array.length; i+=subgrid+1){
-          subgrid = parseInt(array[i]);
-          var puzzle = []
-          for(var j=1; j<=subgrid; j++){
-            for(var k=0; k<subgrid; k++){
-              array[i+j][k] = parseInt(array[i+j][k]);
-            }
-            puzzle.push(array[i+j]);
-          }
-          vm.puzzles.push(puzzle);
-          vm.puzzleNumber += 1;
-        }
-        $scope.contents.puzzles = vm.puzzles;
-        console.log(vm.puzzles)
+        document.getElementById("textfile").innerHTML = vm.textsrc;
+        document.getElementById("isUpdated").innerHTML = vm.totalUpdate+1;
     };
+
 
     function openModal(i){
       console.log(i)
@@ -136,7 +121,35 @@
     }
 
     function nextPuzzle() {
-      console.log($scope.contents);
+      vm.totalUpdate = parseInt(document.getElementById("isUpdated").innerHTML);
+
+      if(vm.currentUpdate < vm.totalUpdate){
+        var textsrc = document.getElementById("textfile").innerHTML;
+        var array = textsrc.split("\n");
+        console.log(array)
+        var noOfPuzzles = parseInt(array[0]);
+        var subgrid = 0;
+        var len = array.length
+
+        for(var i=1; i<len; i+=subgrid+1){
+          subgrid = parseInt(array[i]);
+          var puzzle = []
+
+          for(var j=1; j<=subgrid; j++){
+            var row = []
+            for(var k=0; k<subgrid; k++){
+              var array2 = array[i+j].split(" ");
+              row.push(parseInt(array2[k]));
+            }
+            puzzle.push(row);
+          }
+          vm.puzzles.push(puzzle);
+        }
+
+        vm.puzzleNumber = vm.puzzles.length
+        vm.currentUpdate += 1;
+      }
+      console.log(vm.puzzles)
       if (vm.puzzleIndex < vm.puzzleNumber - 1) {
         vm.puzzleIndex++;
         vm.currTable = JSON.parse(JSON.stringify(vm.puzzles[vm.puzzleIndex]));

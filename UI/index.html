@@ -20,11 +20,12 @@
 		<div class="row">
 			<div class="eight wide column">
 				<div style="float: left; padding: 10px">
-					<input type="file" on-read-file="showContent($fileContent)" ng-model="txtfile"/>
-				    <div ng-if="content">
-				        <h2>File content is:</h2>
-				        <pre>{{ content }}</pre>
-				    </div>
+					<label for="upload" class="ui icon button">
+						<i class="large black file alternate icon" id="file-indicator"></i>
+					</label>
+					<input type="file" id="upload" on-read-file="showContent($fileContent)" style="display:none;"/>
+				    <p id="textfile" style="display:none;"></p>
+				    <p id="isUpdated" style="display:none;"></p>
 				</div>
 			</div>
 			<div class="eight wide column">
