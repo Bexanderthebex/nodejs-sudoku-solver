@@ -20,7 +20,11 @@
 		<div class="row">
 			<div class="eight wide column">
 				<div style="float: left; padding: 10px">
-					<a href="" ng-click="main.fileRead()"><i class="large black file alternate icon"></i> File Read</a>
+					<label for="upload" class="ui icon button">
+						<i class="large black file alternate icon" id="file-indicator"></i>
+					</label>
+					<input type="file" id="upload" style="display:none;">
+					<a href="" ng-click="main.fileRead()"> File Read</a>
 				</div>
 			</div>
 			<div class="eight wide column">

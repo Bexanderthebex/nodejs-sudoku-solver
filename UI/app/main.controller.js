@@ -14,8 +14,18 @@
     vm.subgrid = 2;
 
     vm.puzzles = [
-      [[1, 0, 0, 3], [2, 0, 4, 0], [0, 2, 0, 0], [0, 0, 0, 0]], //puzzle 0
-      [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+      [
+        [1, 0, 0, 3], 
+        [2, 0, 4, 0], 
+        [0, 2, 0, 0], 
+        [0, 0, 0, 0]
+      ], //puzzle 0
+      [
+        [0, 0, 0, 0], 
+        [0, 0, 0, 0], 
+        [0, 0, 0, 0], 
+        [0, 0, 0, 0]
+      ],
       [
         [1, 0, 0, 0, 0, 0, 6, 0, 7],
         [0, 8, 0, 7, 0, 1, 0, 4, 0],
@@ -49,7 +59,7 @@
     ]; //all puzzles
 
     vm.puzzleNumber = vm.puzzles.length;
-    vm.currTable = JSON.parse(JSON.stringify(vm.puzzles[vm.puzzleIndex])); //cuurent table
+    vm.currTable = JSON.parse(JSON.stringify(vm.puzzles[vm.puzzleIndex])); //current table
     vm.uiTable = JSON.parse(JSON.stringify(vm.currTable)); //table for ui
     vm.N = vm.currTable.length; //dimensions
     vm.solutions = [];
@@ -85,8 +95,39 @@
     }
 
     function fileRead() {
-      //do file reading here
-      console.log("hmm");
+      var fileToLoad = document.getElementById("upload").files[0];
+      var fileReader = new FileReader();
+
+      fileReader.onload = function(fileLoadedEvent) {
+        var textFromFileLoaded = fileLoadedEvent.target.result;
+        var array = textFromFileLoaded.split("\n");
+
+        var noOfPuzzles = parseInt(array[0]);
+        var subgrid = 0;
+        
+        for(var i=1; i<array.length; i+=subgrid+1){
+          subgrid = parseInt(array[i]);
+          var puzzle = []
+          for(var j=1; j<=subgrid; j++){
+            for(var k=0; k<subgrid; k++){
+              array[i+j][k] = parseInt(array[i+j][k]);
+            }
+            puzzle.push(array[i+j]);
+          }
+          vm.puzzles.push(puzzle);
+          vm.puzzleNumber += 1;
+        }
+        
+        $scope.$apply();
+
+      };
+      fileReader.readAsText(fileToLoad, "UTF-8");
+    }
+
+    function update(puzzles){
+      vm.puzzles = puzzles;
+      vm.puzzleNumber = vm.puzzles.length;
+      console.log(vm.puzzleNumber);
     }
 
     function openModal(i){
@@ -104,7 +145,7 @@
     }
 
     function nextPuzzle() {
-      console.log("entered here");
+      console.log(vm.puzzles);
       if (vm.puzzleIndex < vm.puzzleNumber - 1) {
         vm.puzzleIndex++;
         vm.currTable = JSON.parse(JSON.stringify(vm.puzzles[vm.puzzleIndex]));
