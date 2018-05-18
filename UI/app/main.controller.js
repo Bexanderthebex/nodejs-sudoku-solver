@@ -76,9 +76,12 @@
     vm.here = here;
     vm.nextPage = nextPage;
     vm.prevPage = prevPage;
-    vm.fileRead = fileRead;
     vm.openModal = openModal;
     vm.checkPlayable = checkPlayable;
+    vm.textsrc = "";
+
+    $scope.contents = {}
+    $scope.txtfile = {}
 
     function here(val, i, j) {
       console.log("here:" + val);
@@ -94,13 +97,10 @@
       console.log(vm.currTable);
     }
 
-    function fileRead() {
-      var fileToLoad = document.getElementById("upload").files[0];
-      var fileReader = new FileReader();
+    $scope.showContent = function($fileContent){
+        $scope.contents.textsrc = $fileContent;
 
-      fileReader.onload = function(fileLoadedEvent) {
-        var textFromFileLoaded = fileLoadedEvent.target.result;
-        var array = textFromFileLoaded.split("\n");
+        var array = $scope.contents.textsrc.split("\n");
 
         var noOfPuzzles = parseInt(array[0]);
         var subgrid = 0;
@@ -117,18 +117,9 @@
           vm.puzzles.push(puzzle);
           vm.puzzleNumber += 1;
         }
-        
-        $scope.$apply();
-
-      };
-      fileReader.readAsText(fileToLoad, "UTF-8");
-    }
-
-    function update(puzzles){
-      vm.puzzles = puzzles;
-      vm.puzzleNumber = vm.puzzles.length;
-      console.log(vm.puzzleNumber);
-    }
+        $scope.contents.puzzles = vm.puzzles;
+        console.log(vm.puzzles)
+    };
 
     function openModal(i){
       console.log(i)
@@ -145,7 +136,7 @@
     }
 
     function nextPuzzle() {
-      console.log(vm.puzzles);
+      console.log($scope.contents);
       if (vm.puzzleIndex < vm.puzzleNumber - 1) {
         vm.puzzleIndex++;
         vm.currTable = JSON.parse(JSON.stringify(vm.puzzles[vm.puzzleIndex]));
