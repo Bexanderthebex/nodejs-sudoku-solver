@@ -103,8 +103,8 @@
     vm.checkPlayable = checkPlayable;
 
     function here(val, i, j) {
-      console.log("here:" + val);
-      console.log(i + "	" + j);
+      // console.log("here:" + val);
+      // console.log(i + "	" + j);
       if (val != null) {
         if (val != undefined && val < vm.N + 1 && val > 0) {
           vm.currTable[i][j] = val;
@@ -113,7 +113,7 @@
         }
       }
 
-      console.log(vm.currTable);
+      // console.log(vm.currTable);
     }
 
     function fileRead() {
@@ -149,11 +149,11 @@
     function update(puzzles) {
       vm.puzzles = puzzles;
       vm.puzzleNumber = vm.puzzles.length;
-      console.log(vm.puzzleNumber);
+      // console.log(vm.puzzleNumber);
     }
 
     function openModal(i) {
-      console.log(i)
+      // console.log(i)
       if (i == 1) {
         $('.ui.modal.instruc')
           .modal('show')
@@ -167,7 +167,7 @@
     }
 
     function nextPuzzle() {
-      console.log(vm.puzzles);
+      // console.log(vm.puzzles);
       if (vm.puzzleIndex < vm.puzzleNumber - 1) {
         vm.puzzleIndex++;
         vm.currTable = JSON.parse(JSON.stringify(vm.puzzles[vm.puzzleIndex]));
@@ -177,7 +177,7 @@
         vm.Nsolutions = 0;
         vm.noSolution = false;
         vm.showPuzzles = false;
-        console.log(vm.N);
+        // console.log(vm.N);
       }
     }
 
@@ -191,7 +191,7 @@
         vm.Nsolutions = 0;
         vm.noSolution = false;
         vm.showPuzzles = false;
-        console.log(vm.N);
+        // console.log(vm.N);
       }
     }
 
@@ -233,8 +233,8 @@
           }
         }
       }
-      console.log(answered)
-      console.log(complete)
+      // console.log(answered)
+      // console.log(complete)
       $http({
         method: "POST",
         headers: {
@@ -244,10 +244,10 @@
         data: { puzzle: vm.currTable, to_check: answered, type: type }
       }).then(
         function successCallback(response) {
-          console.log(response.data)
+          // console.log(response.data)
           let size = response.data.length;
           if (size == 0) {
-            console.log("here")
+            // console.log("here")
             if (complete) {
               for (i = 0; i < dim; i++) {
                 for (j = 0; j < dim; j++) {
@@ -256,7 +256,7 @@
                 }
               }
             }
-            console.log(vm.uiTable)
+            // console.log(vm.uiTable)
           } else {
             for (i = 0; i < size; i++) {
               let j = response.data[i][0]
@@ -266,7 +266,7 @@
           }
         },
         function errorCallback(response) {
-          console.log(response);
+          // console.log(response);
         }
       );
 
@@ -292,12 +292,12 @@
             vm.Nsolutions = vm.solutions.pop();
             vm.noSolution = false;
             vm.showPuzzles = true;
-            console.log(vm.solutions);
-            console.log(vm.Nsolutions);
+            // console.log(vm.solutions);
+            // console.log(vm.Nsolutions);
           }
         },
         function errorCallback(response) {
-          console.log(response);
+          // console.log(response);
         }
       );
     }
@@ -312,10 +312,10 @@
         data: { puzzle: vm.puzzles[vm.puzzleIndex], type: 10 }
       }).then(
         function successCallback(response) {
-          console.log("went here");
-          console.log(response.data);
+          // console.log("went here");
+          // console.log(response.data);
           if (response.data == 0 || response.data == undefined) {
-            console.log("here");
+            // console.log("here");
             vm.noSolution = true;
             vm.solutions = [];
             vm.Nsolutions = 0;
@@ -325,12 +325,12 @@
             vm.Nsolutions = vm.solutions.pop();
             vm.noSolution = false;
             vm.showPuzzles = true;
-            console.log(vm.solutions);
-            console.log(vm.Nsolutions);
+            // console.log(vm.solutions);
+            // console.log(vm.Nsolutions);
           }
         },
         function errorCallback(response) {
-          console.log(response);
+          // console.log(response);
         }
       );
     }
@@ -355,12 +355,12 @@
             vm.Nsolutions = vm.solutions.pop();
             vm.noSolution = false;
             vm.showPuzzles = true;
-            console.log(vm.solutions);
-            console.log(vm.Nsolutions);
+            // console.log(vm.solutions);
+            // console.log(vm.Nsolutions);
           }
         },
         function errorCallback(response) {
-          console.log(response);
+          // console.log(response);
         }
       );
     }
@@ -385,12 +385,12 @@
             vm.Nsolutions = vm.solutions.pop();
             vm.noSolution = false;
             vm.showPuzzles = true;
-            console.log(vm.solutions);
-            console.log(vm.Nsolutions);
+            // console.log(vm.solutions);
+            // console.log(vm.Nsolutions);
           }
         },
         function errorCallback(response) {
-          console.log(response);
+          // console.log(response);
         }
       );
     }
