@@ -1,4 +1,4 @@
-(function() {
+(function () {
   angular.module("app").controller("mainController", mainController);
 
   function mainController($scope, $http, $document) {
@@ -15,46 +15,68 @@
 
     vm.puzzles = [
       [
-        [1, 0, 0, 3], 
-        [2, 0, 4, 0], 
-        [0, 2, 0, 0], 
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
         [0, 0, 0, 0]
       ], //puzzle 0
       [
-        [0, 0, 0, 0], 
-        [0, 0, 0, 0], 
-        [0, 0, 0, 0], 
+        [1, 0, 0, 3],
+        [2, 0, 4, 0],
+        [0, 2, 0, 0],
         [0, 0, 0, 0]
       ],
       [
-        [1, 0, 0, 0, 0, 0, 6, 0, 7],
-        [0, 8, 0, 7, 0, 1, 0, 4, 0],
-        [0, 3, 2, 4, 0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 0, 9, 1, 0, 0],
-        [3, 1, 0, 0, 4, 0, 0, 2, 9],
-        [0, 0, 4, 8, 0, 0, 0, 0, 0],
-        [0, 2, 0, 0, 0, 3, 5, 6, 0],
-        [0, 9, 0, 2, 0, 4, 0, 3, 0],
-        [8, 0, 3, 0, 0, 0, 0, 0, 2]
+        [6, 0, 0, 2, 0, 0, 9, 0, 0],
+        [0, 0, 0, 5, 0, 0, 7, 4, 0],
+        [0, 7, 4, 9, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 8, 0, 5, 4],
+        [1, 0, 0, 0, 0, 0, 0, 0, 9],
+        [8, 9, 0, 3, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 9, 2, 7, 0],
+        [0, 2, 9, 0, 0, 3, 0, 0, 0],
+        [0, 0, 3, 0, 0, 2, 1, 0, 8],
+      ],
+      [
+        [1, 0, 0, 0, 2, 0, 0, 0, 4],
+        [0, 2, 0, 0, 0, 8, 0, 1, 0],
+        [0, 0, 3, 0, 4, 0, 2, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 0, 0, 4, 0],
+        [0, 0, 0, 7, 6, 9, 0, 0, 0],
+        [0, 0, 6, 0, 7, 0, 8, 0, 0],
+        [0, 9, 0, 0, 8, 0, 0, 7, 0],
+        [8, 0, 7, 0, 3, 0, 0, 0, 6],
+      ],
+      [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
       ],
 
       [
-        [1, 0, 0, 0, 0, 0, 6, 0, 7, 0, 0, 0, 0, 6, 0, 7],
-        [0, 8, 0, 7, 0, 1, 0, 4, 0, 0, 0, 0, 0, 6, 0, 7],
-        [0, 3, 2, 4, 0, 0, 0, 1, 0, 0, 0, 0, 0, 6, 0, 7],
-        [0, 0, 0, 0, 0, 9, 1, 0, 0, 0, 0, 0, 0, 6, 0, 7],
-        [3, 1, 0, 0, 4, 0, 0, 2, 9, 0, 0, 0, 0, 6, 0, 7],
-        [0, 0, 4, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 7],
-        [0, 2, 0, 0, 0, 3, 5, 6, 0, 0, 0, 0, 0, 6, 0, 7],
-        [0, 9, 0, 2, 0, 4, 0, 3, 0, 0, 0, 0, 0, 6, 0, 7],
-        [8, 0, 3, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 6, 0, 7],
-        [0, 3, 2, 4, 0, 0, 0, 1, 0, 0, 0, 0, 0, 6, 0, 7],
-        [0, 0, 0, 0, 0, 9, 1, 0, 0, 0, 0, 0, 0, 6, 0, 7],
-        [3, 1, 0, 0, 4, 0, 0, 2, 9, 0, 0, 0, 0, 6, 0, 7],
-        [0, 0, 4, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 7],
-        [0, 2, 0, 0, 0, 3, 5, 6, 0, 0, 0, 0, 0, 6, 0, 7],
-        [0, 9, 0, 2, 0, 4, 0, 3, 0, 0, 0, 0, 0, 6, 0, 7],
-        [8, 0, 3, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 6, 0, 7]
+        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+        [9, 10, 11, 12, 1, 2, 3, 4, 13, 14, 15, 16, 5, 6, 7, 8],
+        [5, 6, 7, 8, 13, 14, 15, 16, 1, 2, 3, 4, 9, 10, 11, 12],
+        [13, 14, 15, 16, 9, 10, 11, 12, 5, 6, 7, 8, 1, 2, 3, 4],
+        [3, 1, 4, 2, 7, 5, 8, 6, 11, 9, 14, 10, 15, 12, 16, 13],
+        [11, 9, 14, 10, 3, 1, 4, 2, 15, 12, 16, 13, 7, 5, 8, 6],
+        [7, 5, 8, 6, 15, 12, 16, 13, 3, 1, 4, 2, 11, 9, 14, 10],
+        [15, 12, 16, 13, 11, 9, 14, 10, 7, 5, 8, 6, 3, 1, 4, 2],
+        [2, 4, 1, 3, 6, 8, 5, 7, 10, 15, 9, 11, 12, 16, 13, 14],
+        [10, 15, 9, 11, 2, 4, 1, 3, 12, 16, 13, 14, 6, 8, 5, 7],
+        [6, 8, 5, 7, 12, 16, 13, 14, 2, 4, 1, 3, 10, 15, 9, 11],
+        [12, 16, 13, 14, 10, 15, 9, 11, 6, 8, 5, 7, 2, 4, 1, 3],
+        [4, 3, 2, 1, 8, 7, 6, 5, 14, 11, 10, 9, 16, 13, 12, 15],
+        [14, 11, 10, 9, 4, 3, 2, 1, 16, 13, 12, 15, 8, 7, 6, 5],
+        [8, 7, 6, 5, 16, 13, 12, 15, 4, 3, 2, 1, 14, 11, 10, 9],
+        [16, 13, 12, 15, 14, 11, 10, 9, 8, 7, 6, 5, 4, 3, 0, 0]
       ]
     ]; //all puzzles
 
@@ -98,49 +120,49 @@
       var fileToLoad = document.getElementById("upload").files[0];
       var fileReader = new FileReader();
 
-      fileReader.onload = function(fileLoadedEvent) {
+      fileReader.onload = function (fileLoadedEvent) {
         var textFromFileLoaded = fileLoadedEvent.target.result;
         var array = textFromFileLoaded.split("\n");
 
         var noOfPuzzles = parseInt(array[0]);
         var subgrid = 0;
-        
-        for(var i=1; i<array.length; i+=subgrid+1){
+
+        for (var i = 1; i < array.length; i += subgrid + 1) {
           subgrid = parseInt(array[i]);
           var puzzle = []
-          for(var j=1; j<=subgrid; j++){
-            for(var k=0; k<subgrid; k++){
-              array[i+j][k] = parseInt(array[i+j][k]);
+          for (var j = 1; j <= subgrid; j++) {
+            for (var k = 0; k < subgrid; k++) {
+              array[i + j][k] = parseInt(array[i + j][k]);
             }
-            puzzle.push(array[i+j]);
+            puzzle.push(array[i + j]);
           }
           vm.puzzles.push(puzzle);
           vm.puzzleNumber += 1;
         }
-        
+
         $scope.$apply();
 
       };
       fileReader.readAsText(fileToLoad, "UTF-8");
     }
 
-    function update(puzzles){
+    function update(puzzles) {
       vm.puzzles = puzzles;
       vm.puzzleNumber = vm.puzzles.length;
       console.log(vm.puzzleNumber);
     }
 
-    function openModal(i){
+    function openModal(i) {
       console.log(i)
-      if(i==1){
+      if (i == 1) {
         $('.ui.modal.instruc')
           .modal('show')
-        ;
+          ;
       }
-      if(i==2){
+      if (i == 2) {
         $('.ui.modal.credits')
           .modal('show')
-        ;
+          ;
       }
     }
 
@@ -185,68 +207,68 @@
       }
     }
 
-    function checkPlayable(t){
+    function checkPlayable(t) {
       vm.uiTable = JSON.parse(JSON.stringify(vm.puzzles[vm.puzzleIndex]));
-      var type=0;
-      if(t==1){
-        type=40;//regular
-      }else if(t==2){
-        type=10;//x
-      }else if(t==3){
-        type=20;//y
-      }else if(t==4){
-        type=30;//xy
+      var type = 0;
+      if (t == 1) {
+        type = 40;//regular
+      } else if (t == 2) {
+        type = 10;//x
+      } else if (t == 3) {
+        type = 20;//y
+      } else if (t == 4) {
+        type = 30;//xy
       }
       var dim = vm.N;
-      var complete=true;
-      var answered=[];
+      var complete = true;
+      var answered = [];
 
-      for(i=0;i<dim;i++){
-        for(j=0;j<dim;j++){
-          if(vm.uiTable[i][j]==0 && vm.currTable[i][j]!=0){
-            answered.push([i,j])
+      for (i = 0; i < dim; i++) {
+        for (j = 0; j < dim; j++) {
+          if (vm.uiTable[i][j] == 0 && vm.currTable[i][j] != 0) {
+            answered.push([i, j])
           }
-          if(vm.uiTable[i][j]==0 && vm.currTable[i][j]==0){
-            complete=false;
+          if (vm.uiTable[i][j] == 0 && vm.currTable[i][j] == 0) {
+            complete = false;
           }
         }
       }
       console.log(answered)
       console.log(complete)
       $http({
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          url: "http://localhost:3000/check",
-          data: { puzzle: vm.currTable, to_check:answered ,type: type }
-        }).then(
-          function successCallback(response) {
-            console.log(response.data)
-            let size= response.data.length;
-            if(size==0){
-              console.log("here")
-                if(complete){
-                  for(i=0;i<dim;i++){
-                    for(j=0;j<dim;j++){
-                      if(vm.uiTable[i][j]==0)
-                        vm.uiTable[i][j] = 9999
-                    }
-                  }
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        url: "http://localhost:3000/check",
+        data: { puzzle: vm.currTable, to_check: answered, type: type }
+      }).then(
+        function successCallback(response) {
+          console.log(response.data)
+          let size = response.data.length;
+          if (size == 0) {
+            console.log("here")
+            if (complete) {
+              for (i = 0; i < dim; i++) {
+                for (j = 0; j < dim; j++) {
+                  if (vm.uiTable[i][j] == 0)
+                    vm.uiTable[i][j] = 9999
                 }
-                console.log(vm.uiTable)
-            }else{
-              for(i=0;i<size;i++){
-                let j = response.data[i][0]
-                let k = response.data[i][1]
-                vm.uiTable[j][k] = 999
               }
             }
-          },
-          function errorCallback(response) {
-            console.log(response);
+            console.log(vm.uiTable)
+          } else {
+            for (i = 0; i < size; i++) {
+              let j = response.data[i][0]
+              let k = response.data[i][1]
+              vm.uiTable[j][k] = 999
+            }
           }
-        );
+        },
+        function errorCallback(response) {
+          console.log(response);
+        }
+      );
 
     }
 
